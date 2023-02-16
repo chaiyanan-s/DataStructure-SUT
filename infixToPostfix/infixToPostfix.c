@@ -48,11 +48,11 @@ int checkoper(char ck) {
         push(ck);
     } else {
         if(checkpr(ck) <= checkpr(stackpop())) {
+            while(checkpr(ck) <= checkpr(stackpop()) && stackpop()!=0) {
+                printf("%c", pop());
+            }
         }
-        while(checkpr(ck) <= checkpr(stackpop()) && stackpop()!=0) {
-            printf("%c", pop());
-        }
-            push(ck);
+        push(ck);
     }
 }
 
