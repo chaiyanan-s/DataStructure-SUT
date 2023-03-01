@@ -35,7 +35,6 @@ Node* createNode(char data) {
 }
 
 void bst::insert(string prefix) {
-
     for (int i = prefix.size() - 1; i >= 0; i--) {
         char c = prefix[i];
         if (isdigit(c) || isalpha(c)) {
@@ -51,7 +50,6 @@ void bst::insert(string prefix) {
             st.push(node);
         }
     }
-
     root =  st.top();
 }
 
@@ -90,7 +88,7 @@ void bst::traversePostOrder(Node *temp) {
 /* ===================================== tree ===================================== */
 
 
-/* ===================================== mutanial ===================================== */
+/* ===================================== prepare ===================================== */
 
 bool isOperator(char c) {
     return (!isalpha(c) && !isdigit(c));
@@ -114,14 +112,14 @@ string infixToPostfix(string infix) {
 
 		// If the scanned character is an
 		// operand, add it to output.
-		if (isalpha(infix[i]) || isdigit(infix[i]))
-			output += infix[i];
-
+		if (isalpha(infix[i]) || isdigit(infix[i])){
+            output += infix[i];
+        }
 		// If the scanned character is an
 		// ‘(‘, push it to the stack.
-		else if (infix[i] == '(')
-			char_stack.push('(');
-
+		else if (infix[i] == '(') {
+            char_stack.push('(');
+        }
 		// If the scanned character is an
 		// ‘)’, pop and output from the stack
 		// until an ‘(‘ is encountered.
@@ -130,35 +128,24 @@ string infixToPostfix(string infix) {
 				output += char_stack.top();
 				char_stack.pop();
 			}
-
 			// Remove '(' from the stack
 			char_stack.pop();
 		}
-
 		// Operator found
-		else
-		{
-			if (isOperator(char_stack.top()))
-			{
-				if(infix[i] == '^')
-				{
-					while (getPriority(infix[i]) <= getPriority(char_stack.top()))
-					{
+		else {
+			if (isOperator(char_stack.top())) {
+				if(infix[i] == '^') {
+					while (getPriority(infix[i]) <= getPriority(char_stack.top())) {
 						output += char_stack.top();
 						char_stack.pop();
 					}
 					
-				}
-				else
-				{
-					while (getPriority(infix[i]) < getPriority(char_stack.top()))
-					{
+				} else {
+					while (getPriority(infix[i]) < getPriority(char_stack.top())) {
 						output += char_stack.top();
 						char_stack.pop();
 					}
-					
 				}
-
 				// Push current Operator on stack
 				char_stack.push(infix[i]);
 			}
@@ -171,37 +158,29 @@ string infixToPostfix(string infix) {
 	return output;
 }
 
-string infixToPrefix(string infix)
-{
+string infixToPrefix(string infix){
 	/* Reverse String
 	* Replace ( with ) and vice versa
 	* Get Postfix
 	* Reverse Postfix * */
 	int l = infix.size();
-
 	// Reverse infix
 	reverse(infix.begin(), infix.end());
-
 	// Replace ( with ) and vice versa
 	for (int i = 0; i < l; i++) {
-
 		if (infix[i] == '(') {
 			infix[i] = ')';
-		}
-		else if (infix[i] == ')') {
+		} else if (infix[i] == ')') {
 			infix[i] = '(';
 		}
 	}
-
 	string prefix = infixToPostfix(infix);
-
 	// Reverse postfix
 	reverse(prefix.begin(), prefix.end());
-
 	return prefix;
 }
 
-/* ===================================== mutanial ===================================== */
+/* ===================================== prepare ===================================== */
 
 int main() {
     bst b;
